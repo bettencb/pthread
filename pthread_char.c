@@ -1,5 +1,9 @@
 /*****************************************************************************
+<<<<<<< HEAD
 * FILE: pthread_char.c (sum_of_string mutex)
+=======
+* FILE: pthread_char.c (diffofsums mutex)
+>>>>>>> b5cb103... Initial Commit
 * DESCRIPTION:
 *   This example program illustrates the use of mutex variables 
 *   in a threads program. This version was obtained by modifying the
@@ -17,7 +21,11 @@
 
 /*   
 The following structure contains the necessary information  
+<<<<<<< HEAD
 to allow the function "sum_of_string" to access its input data and 
+=======
+to allow the function "diffofsums" to access its input data and 
+>>>>>>> b5cb103... Initial Commit
 place its output into the structure.  This structure is 
 unchanged from the sequential version.
 */
@@ -39,7 +47,11 @@ typedef struct
    pthread_mutex_t mutexsum;
 
 /*
+<<<<<<< HEAD
 The function sum_of_string is activated when the thread is created.
+=======
+The function diffofsums is activated when the thread is created.
+>>>>>>> b5cb103... Initial Commit
 As before, all input to this routine is obtained from a structure 
 of type DOTDATA and all output from this function is written into
 this structure. The benefit of this approach is apparent for the 
@@ -49,7 +61,11 @@ is a thread number. All  the other information required by the
 function is accessed from the globally accessible structure. 
 */
 
+<<<<<<< HEAD
 void *sum_of_string(void *arg)
+=======
+void *diffofsums(void *arg)
+>>>>>>> b5cb103... Initial Commit
 {
 
 /* Define and use local variables for convenience */
@@ -72,7 +88,11 @@ to the appropriate variable in the structure.
    mysum = 0;
    for (i=start; i<end ; i++) 
     {
+<<<<<<< HEAD
       mysum += (x[i] + y[i]);
+=======
+      mysum -= (x[i] + y[i]);
+>>>>>>> b5cb103... Initial Commit
     }
 
 /*
@@ -122,7 +142,11 @@ sumstr.sum=0;
 
 pthread_mutex_init(&mutexsum, NULL);
          
+<<<<<<< HEAD
 /* Create threads to perform the sum_of_stringuct  */
+=======
+/* Create threads to perform the diffofsumsuct  */
+>>>>>>> b5cb103... Initial Commit
 pthread_attr_init(&attr);
 pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
@@ -132,7 +156,11 @@ for(i=0;i<NUMTHRDS;i++)
    * The offset is specified by 'i'. The size of
    * the data for each thread is indicated by VECLEN.
    */
+<<<<<<< HEAD
    pthread_create(&callThd[i], &attr, sum_of_string, (void *)i); 
+=======
+   pthread_create(&callThd[i], &attr, diffofsums, (void *)i); 
+>>>>>>> b5cb103... Initial Commit
    }
 
 pthread_attr_destroy(&attr);
