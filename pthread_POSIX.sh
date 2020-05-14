@@ -12,4 +12,4 @@
 #SBATCH --mem=4000
 #SBATCH -p normal
 
-./pthread_string;
+./pthread_main;
