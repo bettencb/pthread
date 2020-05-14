@@ -1,5 +1,7 @@
 
 #include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /*   
 The following structure contains the necessary information  
@@ -20,12 +22,12 @@ typedef struct
 
 #define NUMTHRDS 4
 #define VECLEN 100000
+#define ARRAY_SIZE 2000000
+#define STRING_SIZE 16
+#define MAXCHAR 1000
    DOTDATA sumstr; 
    pthread_t callThd[NUMTHRDS];
    pthread_mutex_t mutexsum;
-
-#define ARRAY_SIZE 2000000
-#define STRING_SIZE 16
 
 char char_array[ARRAY_SIZE][STRING_SIZE];
 int sum_of_strings[ARRAY_SIZE];
