@@ -46,12 +46,10 @@ argument to the activated function - typically this argument
 is a thread number. All  the other information required by the 
 function is accessed from the globally accessible structure. 
 */
-
 void *sum_of_string(void *arg)
 {
 
 /* Define and use local variables for convenience */
-
    int i, start, end, len ;
    long offset;
    double mysum, *x, *y;
@@ -112,7 +110,6 @@ a thread attribute value that allow the main thread to join with the
 threads it creates. Note also that we free up handles  when they are
 no longer needed.
 */
-
 int main (int argc, char *argv[])
 {
 long i;
@@ -121,7 +118,6 @@ void *status;
 pthread_attr_t attr;
 
 /* Assign storage and initialize values */
-
 a = (double*) malloc (NUMTHRDS*VECLEN*sizeof(double));
 b = (double*) malloc (NUMTHRDS*VECLEN*sizeof(double));
   
