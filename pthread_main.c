@@ -84,7 +84,7 @@ structure, and unlock it upon updating.
 }
 
 
-int main() {
+void *fileread() {
     FILE *fp;
     char str[MAXCHAR];
     char* filename = "c:\\temp\\test.txt";
@@ -95,7 +95,7 @@ int main() {
         return 1;
     }
     while (fgets(str, MAXCHAR, fp) != NULL)
-        printf("%s", str);
+        printf("%s", str);      // change from printf to some type of store into variable
     fclose(fp);
     return 0;
 }
