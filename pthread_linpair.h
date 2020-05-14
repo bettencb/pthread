@@ -31,6 +31,6 @@ typedef struct
    pthread_mutex_t mutexsum;
 
 char str[ARRAY_SIZE][MAXCHAR];
-int sum_of_strings[ARRAY_SIZE];
-int diff_of_sums[ARRAY_SIZE];
+double string_list[ARRAY_SIZE];
+double differnece_list[ARRAY_SIZE];
 // void *fileread();

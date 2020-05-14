@@ -17,7 +17,7 @@
  *This is the difference part of the difference of sums. 
  Two strings should be getting compared in this method and
  the difference of sums between the two values should be getting
- set into diff_of_sums array in pthread_linpair.h 
+ set into differnece_list array in pthread_linpair.h 
  **/
 void compare_strings()
 {
@@ -27,17 +27,17 @@ void compare_strings()
   for ( i = 0; i < ARRAY_SIZE; i++ ) {
 	for ( j = 0; j < STRING_SIZE; j++ ) {
 		 str[i][j] = parse_strings(); 
-		 sum_of_strings[i] = pthread_char(str);	// call pthread_char.c
+		 string_list[i] = pthread_char(str);
 	}
   }
 
   for ( i = 1; i < ARRAY_SIZE; i++ ) { 
-		diff_of_sums[i] = sum_of_strings[i-1] - sum_of_strings[i];	//compare temp counts for difference of each strings val
+		differnece_list[i] = string_list[i-1] - string_list[i];	//compare temp counts for difference of each strings val
   }
 }
 
 /*
-The function sum_of_string is activated when the thread is created.
+The function sum_of_strings is activated when the thread is created.
 As before, all input to this routine is obtained from a structure 
 of type DOTDATA and all output from this function is written into
 this structure. The benefit of this approach is apparent for the 
@@ -46,7 +46,7 @@ argument to the activated function - typically this argument
 is a thread number. All  the other information required by the 
 function is accessed from the globally accessible structure. 
 */
-void *sum_of_string(void *arg)
+void *sum_of_strings(void *arg)
 {
 
 /* Define and use local variables for convenience */
@@ -69,6 +69,7 @@ to the appropriate variable in the structure.
    for (i=start; i<end ; i++) 
     {
       mysum += (x[i] + y[i]);
+      string_list[i]=mysum;
     }
 
 /*
@@ -136,7 +137,7 @@ sumstr.sum=0;
 
 pthread_mutex_init(&mutexsum, NULL);
          
-/* Create threads to perform the sum_of_stringuct  */
+/* Create threads to perform the sum_of_stringsuct  */
 pthread_attr_init(&attr);
 pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
@@ -146,7 +147,7 @@ for(i=0;i<NUMTHRDS;i++)
    * The offset is specified by 'i'. The size of
    * the data for each thread is indicated by VECLEN.
    */
-   pthread_create(&callThd[i], &attr, sum_of_string, (void *)i); 
+   pthread_create(&callThd[i], &attr, string_list, (void *)i); 
    }
 
 pthread_attr_destroy(&attr);
