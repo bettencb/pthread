@@ -26,8 +26,8 @@ void compare_strings()
 
   for ( i = 0; i < ARRAY_SIZE; i++ ) {
 	for ( j = 0; j < STRING_SIZE; j++ ) {
-		 char_array[i][j] = parse_strings(); 
-		 sum_of_strings[i] = pthread_char(char_array);	// call pthread_char.c
+		 str[i][j] = parse_strings(); 
+		 sum_of_strings[i] = pthread_char(str);	// call pthread_char.c
 	}
   }
 
@@ -85,19 +85,22 @@ structure, and unlock it upon updating.
 
 
 void *fileread() {
-    FILE *fp;
-    char str[MAXCHAR];
-    char* filename = "c:\\temp\\test.txt";
- 
+    FILE *fp = NULL;
+    char line[STRING_SIZE][MAXCHAR];
+    char* filename = FILENAME;
+    int i = 0;
     fp = fopen(filename, "r");
     if (fp == NULL){
         printf("Could not open file %s",filename);
         return 1;
     }
-    while (fgets(str, MAXCHAR, fp) != NULL)
-        printf("%s", str);      // change from printf to some type of store into variable
+    while (fgets(line[i], MAXCHAR, fp) != NULL) 
+    {
+        printf("%s", line[i]);      // prints the string being stored into array
+        str[i][strlen(line[i]) - 1] = '\0';
+        i++;
+    }
     fclose(fp);
-    return 0;
 }
 
 /* 

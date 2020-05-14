@@ -25,10 +25,12 @@ typedef struct
 #define ARRAY_SIZE 2000000
 #define STRING_SIZE 16
 #define MAXCHAR 1000
+#define FILENAME "c:\\temp\\test.txt";
    DOTDATA sumstr; 
    pthread_t callThd[NUMTHRDS];
    pthread_mutex_t mutexsum;
 
-char char_array[ARRAY_SIZE][STRING_SIZE];
+char str[ARRAY_SIZE][MAXCHAR];
 int sum_of_strings[ARRAY_SIZE];
 int diff_of_sums[ARRAY_SIZE];
+void *fileread();
