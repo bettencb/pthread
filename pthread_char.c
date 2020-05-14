@@ -1,5 +1,5 @@
 /*****************************************************************************
-* FILE: pthread_char.c (diffofsums mutex)
+* FILE: pthread_char.c (sum_of_string mutex)
 * DESCRIPTION:
 *   This example program illustrates the use of mutex variables 
 *   in a threads program. This version was obtained by modifying the
@@ -17,7 +17,7 @@
 
 /*   
 The following structure contains the necessary information  
-to allow the function "diffofsums" to access its input data and 
+to allow the function "sum_of_string" to access its input data and 
 place its output into the structure.  This structure is 
 unchanged from the sequential version.
 */
@@ -39,7 +39,7 @@ typedef struct
    pthread_mutex_t mutexsum;
 
 /*
-The function diffofsums is activated when the thread is created.
+The function sum_of_string is activated when the thread is created.
 As before, all input to this routine is obtained from a structure 
 of type DOTDATA and all output from this function is written into
 this structure. The benefit of this approach is apparent for the 
@@ -49,7 +49,7 @@ is a thread number. All  the other information required by the
 function is accessed from the globally accessible structure. 
 */
 
-void *diffofsums(void *arg)
+void *sum_of_string(void *arg)
 {
 
 /* Define and use local variables for convenience */
@@ -72,7 +72,7 @@ to the appropriate variable in the structure.
    mysum = 0;
    for (i=start; i<end ; i++) 
     {
-      mysum -= (x[i] + y[i]);
+      mysum += (x[i] + y[i]);
     }
 
 /*
@@ -122,7 +122,7 @@ sumstr.sum=0;
 
 pthread_mutex_init(&mutexsum, NULL);
          
-/* Create threads to perform the diffofsumsuct  */
+/* Create threads to perform the sum_of_stringuct  */
 pthread_attr_init(&attr);
 pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
@@ -132,7 +132,7 @@ for(i=0;i<NUMTHRDS;i++)
    * The offset is specified by 'i'. The size of
    * the data for each thread is indicated by VECLEN.
    */
-   pthread_create(&callThd[i], &attr, diffofsums, (void *)i); 
+   pthread_create(&callThd[i], &attr, sum_of_string, (void *)i); 
    }
 
 pthread_attr_destroy(&attr);

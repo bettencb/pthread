@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+//#include <pthread_char.c>
 
 #define ARRAY_SIZE 2000000
 #define STRING_SIZE 16
 
 char char_array[ARRAY_SIZE][STRING_SIZE];
-int char_counts[26];
+int temp_count[ARRAY_SIZE];
+int diff_of_sums[ARRAY_SIZE];
 
-char compare_strings()
+/*char parse_strings()
 {
 	int randNum = 0;
 	char randChar = ' ';
@@ -19,23 +21,26 @@ char compare_strings()
 	// printf("%c", randChar);
 	return randChar;
 }
+*/
 
-void init_arrays()
+void compare_strings()
 {
   int i, j, randNum; 
   char randChar;
 
-  for ( i = 0; i < ARRAY_SIZE; i++) {
+  for ( i = 0; i < ARRAY_SIZE; i++ ) {
 	for ( j = 0; j < STRING_SIZE; j++ ) {
-		 char_array[i][j] = getRandomChar();
+		 char_array[i][j] = parse_strings(); 
+		 temp_count[i] = pthread_char(char_array);	// call pthread_char.c
 	}
   }
 
-  for ( i = 0; i < 26; i++ ) { //call compare strings
-  	char_counts[i] = 0;
+  for ( i = 1; i < ARRAY_SIZE; i++ ) { 
+		diff_of_sums[i] = temp_count[i-1] - temp_count[i];	//compare temp counts for difference of each strings val
   }
 }
 
+/*
 void count_array()
 {
   char theChar;
@@ -43,27 +48,26 @@ void count_array()
 
   for ( i = 0; i < ARRAY_SIZE; i++) {
 	for ( j = 0; j < STRING_SIZE; j++ ) {
-	         theChar = char_array[i][j];
+	     theChar = char_array[i][j];
 		 charLoc = ((int) theChar) - 97;
-		 char_counts[charLoc]++;
+		 diff_of_sums[charLoc]++;
 	}
   }
 }
+*/
 
 void print_results()
 {
   int i, total = 0;
 
   for ( i = 0; i < 26; i++ ) {
-     total += char_counts[i];
-     printf(" %c %d\n", (char) (i + 97), char_counts[i]);
+     printf(" %c %d\n", (char) (i + 97), diff_of_sums[i]);
   }
   printf("\nTotal characters:  %d\n", total);
 }
 
 main() {
-	init_arrays();
-	count_array();
+	parse_strings();
 	print_results();
 }
 
