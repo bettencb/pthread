@@ -87,7 +87,6 @@ void *sum_of_strings(void *arg)
  threads it creates. Note also that we free up handles when they are
  no longer needed.
  */
-
 int main(int argc, char *argv[])
 {
   /*
