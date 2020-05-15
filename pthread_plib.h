@@ -25,7 +25,7 @@ typedef struct
 #define ARRAY_SIZE 2000000
 #define MAXCHAR 1000
 #define NUMTHRDS 4 //~OR: 8, 16, 32, 64... number of cores
-#define FILENAME "~dan/625";
+#define FILENAME "~dan/625/wiki_dump.txt";
    STRINGDATA sumstr; 
    pthread_t callThd[VECLEN];
    pthread_mutex_t mutexsum;

@@ -97,8 +97,9 @@ int main(int argc, char *argv[])
   double *a, *b;
   void *status;
   pthread_attr_t attr;
+  FILE fp = fopen(FILENAME, "r");
 
-  while (fgets(str[j], MAXCHAR, argv))
+  while (fgets(str[j], MAXCHAR, fp))
   {
     str[j][strlen(str[j]) - 1] = '\0';
     j++;
