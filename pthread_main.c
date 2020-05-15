@@ -86,81 +86,84 @@ void *sum_of_strings(void *arg)
  threads it creates. Note also that we free up handles when they are
  no longer needed.
  */
-int main(int argc, char *argv[])
+int main() //<--int argc, char *argv[]
 {
-  /*
-  * if file is hard coded, argv would be FILENAME and FILE fp =... would but used to
-  * read in the file with ...fopen(filename, "r")
-  */
   int j = 0;
   long i;
   double *a, *b;
   void *status;
   pthread_attr_t attr;
-  FILE fp = fopen(FILENAME, "r");
+  FILE *fp;
+  char str[MAXCHAR];
+  char *filename = "~dan/625/wiki_dump.txt";
 
-  while (fgets(str[j], MAXCHAR, fp))
+  fp = fopen(filename, "r");
+  if (fp == NULL)
   {
-    str[j][strlen(str[j]) - 1] = '\0';
+    printf("Could not open file %s", filename);
+    return 1;
+  }
+  while (fgets(str, MAXCHAR, fp) != NULL)
+    printf("%s", str);
+    
     j++;
 
-    /* Assign storage and initialize values */
-    a = (double *)malloc(NUMTHRDS * VECLEN * sizeof(double));
-    b = (double *)malloc(NUMTHRDS * VECLEN * sizeof(double));
+  /* Assign storage and initialize values */
+  a = (double *)malloc(NUMTHRDS * VECLEN * sizeof(double));
+  b = (double *)malloc(NUMTHRDS * VECLEN * sizeof(double));
 
-    for (i = 0; i < VECLEN * NUMTHRDS; i++)
-    {
-      a[i] = 1.0;
-      b[i] = a[i];
-    }
+  for (i = 0; i < VECLEN * NUMTHRDS; i++)
+  {
+    a[i] = 1.0;
+    b[i] = a[i];
+  }
 
-    sumstr.veclen = VECLEN;
-    sumstr.a = a;
-    sumstr.b = b;
-    sumstr.sum = 0;
+  sumstr.veclen = VECLEN;
+  sumstr.a = a;
+  sumstr.b = b;
+  sumstr.sum = 0;
 
-    pthread_mutex_init(&mutexsum, NULL);
+  pthread_mutex_init(&mutexsum, NULL);
 
-    /* Create threads to perform the sum_of_stringsuct  */
-    pthread_attr_init(&attr);
-    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+  /* Create threads to perform the sum_of_string struct  */
+  pthread_attr_init(&attr);
+  pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
-    for (i = 0; i < NUMTHRDS; i++)
-    {
-      /* 
+  for (i = 0; i < NUMTHRDS; i++)
+  {
+    /* 
     Each thread works on a different set of data. The offset is specified 
     by 'i'. The size of the data for each thread is indicated by VECLEN.
     */
-      pthread_create(&callThd[i], &attr, sum_of_strings, (void *)i);
-    }
+    pthread_create(&callThd[i], &attr, sum_of_strings, (void *)i);
+  }
 
-    pthread_attr_destroy(&attr);
+  pthread_attr_destroy(&attr);
 
-    /* Wait on the other threads */
-    for (i = 0; i < NUMTHRDS; i++)
-    {
-      pthread_join(callThd[i], &status);
-    }
+  /* Wait on the other threads */
+  for (i = 0; i < NUMTHRDS; i++)
+  {
+    pthread_join(callThd[i], &status);
+  }
 
-    *string_list = sumstr.sum; //the list of double values, one for each line that was read in. Add also a count var here
+  *string_list = sumstr.sum; //the list of double values, one for each line that was read in. Add also a count var here
 
-    /* After joining, print out the results and cleanup */
-    printf("Sum of string %d %f \n", j, sumstr.sum);
-  
+  /* After joining, print out the results and cleanup */
+  printf("Sum of string %d %f \n", j, sumstr.sum);
+
   /*
     //loop back to top, through string_SUM while SCANF() and
     //add an if statement (if loop is == 1 then start calling diff_of_strings.)
     //printf ("Diff of Sum of pair =  %f \n", sumstr.sum); but
   */
-     if(j > 1)
-     {
-       diff_of_strings();
-     }
+  if (j > 1)
+  {
+    diff_of_strings();
   }
   free(a);
   free(b);
   pthread_mutex_destroy(&mutexsum);
   pthread_exit(NULL);
-  argc = 0;
-  return argc;
+  fclose(fp);
+  return 0;
 }
