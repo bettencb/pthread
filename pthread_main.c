@@ -26,7 +26,6 @@ void diff_of_strings()
   {
     differnece_list[i] = string_list[i - 1] - string_list[i]; //compare temp counts for difference of each strings val
   }
-  return 0;
 }
 
 /*
@@ -161,4 +160,6 @@ int main(int argc, char *argv[])
   free(b);
   pthread_mutex_destroy(&mutexsum);
   pthread_exit(NULL);
+  argc = 0;
+  return argc;
 }

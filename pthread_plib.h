@@ -1,4 +1,3 @@
-
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,6 +17,7 @@ typedef struct
    double     sum; 
    int     veclen; 
  } STRINGDATA;
+
 
 /* Define globally accessible variables and a mutex */
 
