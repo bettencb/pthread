@@ -2,6 +2,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*   
 The following structure contains the necessary information  
@@ -16,21 +17,18 @@ typedef struct
    double      *b;
    double     sum; 
    int     veclen; 
- } DOTDATA;
+ } STRINGDATA;
 
 /* Define globally accessible variables and a mutex */
 
-#define NUMTHRDS 4
 #define VECLEN 100000
 #define ARRAY_SIZE 2000000
-#define STRING_SIZE 16
 #define MAXCHAR 1000
-#define FILENAME "c:\\temp\\test.txt";
-   DOTDATA sumstr; 
-   pthread_t callThd[NUMTHRDS];
+#define NUMTHRDS 4 //~OR: 8, 16, 32, 64... number of cores
+#define FILENAME "~dan/625";
+   STRINGDATA sumstr; 
+   pthread_t callThd[VECLEN];
    pthread_mutex_t mutexsum;
-
 char str[ARRAY_SIZE][MAXCHAR];
 double string_list[ARRAY_SIZE];
 double differnece_list[ARRAY_SIZE];
-// void *fileread();
