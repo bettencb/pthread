@@ -1,5 +1,5 @@
 /*****************************************************************************
-* FILE: pthread_compare.c (diff_of_sum mutex)
+* FILE: pthread_main.c (diff_of_sum mutex)
 * DESCRIPTION:
 *   This example program illustrates the use of mutex variables 
 *   in a threads program. This version was obtained by modifying the
