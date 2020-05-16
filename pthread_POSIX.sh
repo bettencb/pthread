@@ -10,6 +10,5 @@
 # Request 5 hours run time
 #SBATCH -t 5:0:0
 #SBATCH --mem=4000
-#SBATCH -p normal
 
 ./pthread_main;
